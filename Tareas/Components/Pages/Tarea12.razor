@@ -1,0 +1,79 @@
+﻿@page "/Tarea12"
+@rendermode InteractiveServer
+
+<h3>Listas de números</h3>
+<div class="container">
+    <div>
+        <label class="form-label col-form-label" for="num1">Número 1</label>
+        <input class="form-control control" type="number" id="num1" @bind="_num1"/>
+
+        <label class="form-label col-form-label" for="num2">Número 2</label>
+        <input class="form-control control" type="number" id="num2" @bind="_num2"/>
+        <button class="btn btn-primary" @onclick="Calcular">Calcular</button>
+
+    </div>
+    <table>
+        <tr>
+            <td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Números Pares</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in nums.Where(n => n % 2 == 0))
+                        {
+                            <tr>
+                                <td>@item</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </td>
+            
+            <td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Números Impares</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in nums.Where(n => n % 2 == 1))
+                        {
+                            <tr>
+                                <td>@item</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
+@code {
+    private int _num1;
+    private int _num2;
+    public List<int> nums = new List<int>();
+    private void Calcular()
+    {
+        nums.Clear();
+        if(_num1 < _num2)
+        {
+            for (int i = _num1; i <= _num2; i++)
+            {
+                nums.Add(i);
+            }
+        }
+        else
+        {
+            for (int i = _num2; i <= _num1; i++)
+            {
+                nums.Add(i);
+            }
+        }
+    }
+}
