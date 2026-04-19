@@ -12,48 +12,46 @@
         <button class="btn btn-primary" @onclick="Calcular">Calcular</button>
 
     </div>
-    <table>
-        <tr>
-            <td>
-                <table>
-                    <thead>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Números Pares</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in nums.Where(n => n % 2 == 0))
+                    {
                         <tr>
-                            <th>Números Pares</th>
+                            <td>@item</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in nums.Where(n => n % 2 == 0))
-                        {
-                            <tr>
-                                <td>@item</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </td>
-            
-            <td>
-                <table>
-                    <thead>
+                    }
+                </tbody>
+            </table>
+            </div>
+            <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Números Impares</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in nums.Where(n => n % 2 == 1))
+                    {
                         <tr>
-                            <th>Números Impares</th>
+                            <td>@item</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in nums.Where(n => n % 2 == 1))
-                        {
-                            <tr>
-                                <td>@item</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
 
-            </td>
-        </tr>
-    </table>
-</div>
+            </div>
+        </div>
+        </div>
+    </div>
 @code {
     private int _num1;
     private int _num2;
