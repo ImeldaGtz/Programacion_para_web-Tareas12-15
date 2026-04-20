@@ -1,5 +1,55 @@
-﻿<h3>Tarea13</h3>
+﻿@page "/Tarea13"
+@rendermode InteractiveServer
+
+<h3>Números primos</h3>
+
+<div class="container">
+    <label class="form-label" for="limite">Número entero:</label>
+    <input class="form-control" type="number" id="limite" @bind="_limite"/>
+    <button class="btn btn-primary" @onclick="CalcularPrimos">Calcular</button>
+</div>
+<div class="mt-3">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Números primos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var primo in primos)
+            {
+                <tr>
+                    <td>@primo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @code {
+    private int _limite;
+    @* Copilot me autocompletó así que voy a poner anotaciones sobre cómo funciona, tengo que desactivar el atuocompletado... Según yo ya, en fin*@
+    private List<int> primos = new List<int>();         // Lista, obvio
 
+    private void CalcularPrimos()                       // Función encargada de agregar primos a la lista
+    {
+        primos.Clear();                                 // Limpia para que no solo agregue y ya, sino que se reinicie tras cada ingreso a la función
+        for (int i = 2; i <= _limite; i++)              // <= para que tome en cuenta también el límite
+        {
+            if (EsPrimo(i))                             // Llama otra función que regresa true o false
+            {
+                primos.Add(i);                          // Si es verdadero lo añade
+            }
+        }
+    }
+
+    private bool EsPrimo(int numero)                    // Función que verifica si un número es primo
+    {
+        if (numero < 2) return false;                   // 0 y 1 no son números primos
+        for (int i = 2; i <= Math.Sqrt(numero); i++)    // Empieza en 2 porque es el primer número primo, termina en la raíz cuadrada de x porque más allá de eso, sus productos se pasan de x
+        {
+            if (numero % i == 0) return false;          // Si es divisible entre cualquier número que se le dé ahora, no es num primo
+        }
+        return true;                                    // Si no es menor a 2 y no es divisible entre ningún valor anterior a éste, entonces es primo
+    }
 }
