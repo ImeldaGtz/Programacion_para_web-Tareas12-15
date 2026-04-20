@@ -1,5 +1,58 @@
-﻿<h3>Tarea14</h3>
+﻿@page "/Tarea14"
+@rendermode InteractiveServer
+
+<h3>To do list</h3>
+@* 
+    Utilizando colecciones, genere una aplicación que le permita administrar una lista de actividades por hacer.
+    La aplicación debe tener una interfaz de usuario que le permita:
+    agregar actividad
+    eliminar actividad 
+    mostrar las actividades por realizar. 
+*@
+<div class="container">
+    <div class="row">
+        <label class="label col-md-2" for="tarea">Tarea: </label>
+        <input class="col-md-8" type="text" id="tarea" @bind="_textoTarea"/>
+
+        <button class="btn btn-primary col-md-2" @onclick="AgregarTarea">Agregar</button>
+    </div>
+
+</div>
+
+<ol start="0">
+    @foreach(var tarea in tareas)
+    {
+        <li>@tarea.tarea</li>
+        <button class="btn btn-danger" @onclick="() => EliminarTarea(tarea)">Eliminar</button>
+    }
+</ol>
 
 @code {
+    private List<Tarea> tareas = new List<Tarea>();
+    private string _textoTarea;
+    // El semestre pasado vimos Clases, voy a intentar implementarlo
+    private class Tarea
+    {
+        private string _tarea { get; set; }
+        public string tarea { get { return _tarea; } set; }
+        // private int _indice { get; set; }                                Con tal de hacerlo como quería, en lugar de usar RemoveAt de una, haré otra cosa.
+        // public int indice { get{ return _indice; } set; }                Edit: No pude, como sea es innecesario
+        public Tarea(string tarea, int indice)
+        {
+            _tarea = tarea;
+            // _indice = indice;
+        }
 
+
+    }
+
+    private void AgregarTarea()
+    {
+        tareas.Add(new Tarea(_textoTarea, (tareas.Count)));   
+    }
+
+    private void EliminarTarea(Tarea ta)
+    {
+        tareas.RemoveAt(tareas.IndexOf(ta));
+    }
 }
